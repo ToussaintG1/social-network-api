@@ -12,7 +12,7 @@ const userSchema = new Schema(
       type: String,
       required: 'Email address is required',
       unique: true,
-      match: [/.+@.+\..+/, "Email must match formatting: example@email.com"],
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email must match formatting: example@email.com"],
     },
     thoughts: [
       {
@@ -35,7 +35,7 @@ const userSchema = new Schema(
   }
 );
 userSchema
-    .virtual('friendCount')
+    .virtual('numberOfFriends')
     .get(function() {
         return this.friends.length
     })
