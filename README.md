@@ -20,4 +20,4 @@ I had an EXTREMELY troubling time because I thought there was an error with my c
 Run the "npm start" Command in your terminal and open up whatever application you prefer to test backend routes. I personally use insomnia because of school but postman works great as well
 
 # Credit 
-Toussaint GIlbert
+Toussaint Gilbert
