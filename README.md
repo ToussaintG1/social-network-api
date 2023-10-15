@@ -4,7 +4,7 @@ This is Toussaint Gilbert's Social Network API using MONGO DB
 
 
 # Link to Google Drive video
-
+https://drive.google.com/file/d/12DWE9XAEA-5aXHyor4xy5dvPiARCb0XF/view
 
 # Purpose 
 The purpose of this assignment is to create API routes to GET, PUT, POST, and DELETE data using a noSQL database aka. Mongo DB. 
