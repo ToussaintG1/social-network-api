@@ -1,6 +1,6 @@
 const { User } = require('../models');
 
-const numberOfFriends = async () =>
+const friendCount = async () =>
   User.aggregate()
     .count('numberOfFriends')
     .then((numberOfFriends) => numberOfFriends);
