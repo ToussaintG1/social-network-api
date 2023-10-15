@@ -15,9 +15,9 @@ const thoughtSchema = new Schema(
     },
     username: {
         type: String,
-        required: 'Email address is required',
+        required: 'true',
         unique: true,
-        match: [/.+@.+\..+/, "Email must match formatting: abc@email.com"],
+        trim:true,
       },
       reactions: [
         reactionSchema
