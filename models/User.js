@@ -12,18 +12,18 @@ const userSchema = new Schema(
       type: String,
       required: 'Email address is required',
       unique: true,
-      match: [/.+@.+\..+/, "Email must match formatting: abc@email.com"],
+      match: [/.+@.+\..+/, "Email must match formatting: example@email.com"],
     },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Student',
+        ref: 'Thought',
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Student',
+        ref: 'User',
       },
     ],
   },
