@@ -1,32 +1,35 @@
 const { User, Thought } = require('../models');
 
 thoughtController = {
-  getThoughts(req, res) {
+  async getThoughts(req, res) {
+    try {
       console.log("Getting Thoughts")
       Thought.find({})
       .then((thoughtDB) => {
           res.json(thoughtDB);
       })
-      .catch((err) => {
+    } catch(err)  {
           console.log(err);
           res.status(500).json(err);
-      });
+      };
   },
 
-  getSingleThought(req, res) {
+  async getSingleThought(req, res) {
+    try {
       Thought.findOne({ _id: req.params.thoughtId })
       .then(async (thoughtDB) =>
       !thoughtDB
           ? res.status(404).json({ message: 'No thought found!' })
           : res.json({ thoughtDB })
       )
-      .catch((err) => {
+  } catch(err)  {
           console.log(err);
           return res.status(500).json(err);
-      });
+      };
   },
 
-  createThought(req, res) {
+  async createThought(req, res) {
+    try {
       Thought.create(req.body)
       .then((thoughtDB) => {
           return User.findOneAndUpdate(
@@ -43,10 +46,12 @@ thoughtController = {
                   .json({ message: 'No user found!' })
               : res.json(userDatabase)
       )
-      .catch((err) => res.status(400).json(err));
+    } catch(err) { res.status(400).json(err);
+    }
   },
 
-  updateThought(req, res) {
+  async updateThought(req, res) {
+    try {
       Thought.findOneAndUpdate(
           { _id: req.params.thoughtId },
           { $set: req.body },
@@ -57,10 +62,12 @@ thoughtController = {
                   ? res.status(404).json({ message: 'No thought found!' })
                   : res.json(thoughtDB)
           )
-          .catch((err) => res.status(500).json(err));
+      }catch(err) { res.status(500).json(err);
+      }
   },
 
-  deleteThought(req, res) {
+  async deleteThought(req, res) {
+    try {
       Thought.findOneAndRemove({ _id: req.params.thoughtId })
           .then((thoughtDB) =>
               !thoughtDB
@@ -78,13 +85,14 @@ thoughtController = {
                   })
                   : res.json({ message: 'Thought successfully deleted' })
           )
-          .catch((err) => {
+                } catch(err) {
               console.log(err);
               res.status(500).json(err);
-          });
+          };
   },
 
-  createReaction(req, res) {
+  async createReaction(req, res) {
+    try {
       console.log('create reaction');
       console.log(req.body);
       Thought.findOneAndUpdate(
@@ -99,10 +107,12 @@ thoughtController = {
                   .json({ message: 'No thought found with that ID' })
               : res.json(thoughtDB)
           )
-          .catch((err) => res.status(500).json(err));
+      } catch(err) { res.status(500).json(err);
+      }
   },
 
-  removeReaction(req, res) {
+  async removeReaction(req, res) {
+    try {
       console.log('remove reaction');
       Thought.findOneAndUpdate(
           { _id: req.params.thoughtId },
@@ -116,7 +126,8 @@ thoughtController = {
                       .json({ message: 'No thought found with that ID' })
                   :res.json(thought)
           )
-          .catch((err) => res.status(500).json(err));
+      } catch(err) {  res.status(500).json(err);
+      }
   },
 };
 

@@ -1,21 +1,24 @@
 const { User, Thought } = require('../models');
 
-const userController = {
+userController = {
   // GET ALL users
-  getUsers(req, res) {
+  async getUsers(req, res) {
+    try {
+    console.log("Getting Users")
     User.find()
       .select('-__v')
       .then((userDB) => {
         res.json(userDB);
       })
-      .catch((err) => {
+    } catch(err) {
         console.log(err);
         res.status(500).json(err);
-      });
+      };
   },
 
   // get single user by id 
-  getSingleUser(req, res) {
+  async getSingleUser(req, res) {
+    try {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
       .populate('friends')
@@ -27,23 +30,26 @@ const userController = {
           res.status(404).json({ message: 'User not found' })
         }
       })
-      .catch((err) => {
+    } catch(err)  {
         console.log(err);
         res.status(500).json(err);
-      });
+      };
   },
   // create a new post
-  createUser(req, res) {
+  async createUser(req, res) {
+    try {
     console.log("CREATE USER")
     User.create(req.body)
     console.log(req.body, "REQ BODY")
       .then((userDB) => res.json(userDB))
       // console.log(userDB)
-      .catch((err) => res.status(500).json(err));
+    } catch(err) { res.status(500).json(err);
+    }
   },
 
 //   update user by id
-  updateUser(req, res) {
+  async updateUser(req, res) {
+    try {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       {
@@ -61,13 +67,14 @@ const userController = {
         }
         res.json(userDB);
       })
-      .catch((err) => {
+    } catch(err) {
         console.log(err);
         res.status(500).json(err);
-      });
+      };
   },
    // delete user by id 
-   deleteUser(req, res) {
+   async deleteUser(req, res) {
+    try {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((userDB) => {
         if (!userDB) {
@@ -79,14 +86,15 @@ const userController = {
       .then(() => {
         res.json({ message: 'User and the thought associated are deleted' });
       })
-      .catch((err) => {
+    } catch(err) {
         console.log(err);
         res.status(500).json(err);
-      });
+      };
   },
 
   // add friend 
-  addFriend(req, res) {
+  async addFriend(req, res) {
+    try {
     User.findOneAndUpdate({ _id: req.params.userId },
       { $addToSet: { friends: req.params.friendId } },
       { new: true })
@@ -96,13 +104,14 @@ const userController = {
         }
         res.json(userDB);
       })
-      .catch((err) => {
+    } catch(err) {
         console.log(err);
         res.status(500).json(err);
-      });
+      };
   },
   // remove friend associated with a specific user
-  removeFriend(req, res) {
+  async removeFriend(req, res) {
+    try {
     User.findOneAndUpdate({ _id: req.params.userId },
       { $pull: { friends: req.params.friendId } },
       { new: true })
@@ -112,10 +121,10 @@ const userController = {
         }
         res.json(userDB);
       })
-      .catch((err) => {
+    } catch(err)  {
         console.log(err);
         res.status(500).json(err);
-      });
+      };
   },
 };
 
