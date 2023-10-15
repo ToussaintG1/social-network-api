@@ -1,6 +1,11 @@
 const { User, Thought } = require('../models');
 
-userController = {
+const numberOfFriends = async () =>
+  User.aggregate()
+    .count('numberOfFriends')
+    .then((numberOfFriends) => numberOfFriends);
+
+module.exports = {
   // GET ALL users
   async getUsers(req, res) {
     try {
@@ -128,4 +133,4 @@ userController = {
   },
 };
 
-module.exports = userController;
+
