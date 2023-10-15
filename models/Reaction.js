@@ -4,6 +4,7 @@ const dateFormat = require('../utils/data');
 const reactionSchema = new Schema(
   {
     reactionId: {
+      // mongoose.Schema.Types.ObjectId || Mongoose.Types.ObjectId
         objectId: new mongoose.Schema.Types.ObjectId,
     },
     reactionBody: {

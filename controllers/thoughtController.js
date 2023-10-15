@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 thoughtController = {
   getThoughts(req, res) {
-      console.log("GETTING ALL THOUGHTS")
+      console.log("Getting Thoughts")
       Thought.find({})
       .then((thoughtDB) => {
           res.json(thoughtDB);
