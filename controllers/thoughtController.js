@@ -1,17 +1,16 @@
 const { User, Thought } = require('../models');
 
-thoughtController = {
-  async getThoughts(req, res) {
-    try {
+module.exports = {
+    getThoughts(req, res) {
       console.log("Getting Thoughts")
       Thought.find({})
       .then((thoughtDB) => {
           res.json(thoughtDB);
       })
-    } catch(err)  {
+        .catch((err) => {
           console.log(err);
           res.status(500).json(err);
-      };
+      });
   },
 
   async getSingleThought(req, res) {
@@ -131,4 +130,4 @@ thoughtController = {
   },
 };
 
-module.exports = thoughtController;
+
