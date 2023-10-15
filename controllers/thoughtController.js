@@ -111,7 +111,7 @@ thoughtController = {
       }
   },
 
-  async removeReaction(req, res) {
+   removeReaction(req, res) {
     try {
       console.log('remove reaction');
       Thought.findOneAndUpdate(
